@@ -1,0 +1,138 @@
+{
+  "name": "double-vision",
+  "displayName": "Double Vision",
+  "description": "ESP32 IP Camera integration for AI-assisted graphical interface development",
+  "version": "0.1.0",
+  "publisher": "variousdemeanors",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other",
+    "Debuggers",
+    "Visualization"
+  ],
+  "keywords": [
+    "esp32",
+    "camera",
+    "ai",
+    "lvgl",
+    "embedded",
+    "graphics",
+    "debugging"
+  ],
+  "activationEvents": [
+    "onCommand:double-vision.connectCamera",
+    "onCommand:double-vision.startMonitoring",
+    "workspaceContains:**/*.ino",
+    "workspaceContains:**/platformio.ini"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "double-vision.connectCamera",
+        "title": "Connect ESP32 Camera",
+        "category": "Double Vision"
+      },
+      {
+        "command": "double-vision.startMonitoring",
+        "title": "Start AI Visual Monitoring",
+        "category": "Double Vision"
+      },
+      {
+        "command": "double-vision.stopMonitoring",
+        "title": "Stop AI Visual Monitoring",
+        "category": "Double Vision"
+      },
+      {
+        "command": "double-vision.takeSnapshot",
+        "title": "Take Display Snapshot",
+        "category": "Double Vision"
+      },
+      {
+        "command": "double-vision.showSettings",
+        "title": "Open Settings",
+        "category": "Double Vision"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "double-vision-camera",
+          "name": "ESP32 Camera Feed",
+          "when": "double-vision.cameraConnected"
+        },
+        {
+          "id": "double-vision-ai",
+          "name": "AI Analysis",
+          "when": "double-vision.aiEnabled"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Double Vision",
+      "properties": {
+        "doubleVision.camera.ipAddress": {
+          "type": "string",
+          "default": "192.168.1.100",
+          "description": "ESP32 camera IP address"
+        },
+        "doubleVision.camera.port": {
+          "type": "number",
+          "default": 80,
+          "description": "ESP32 camera port"
+        },
+        "doubleVision.ai.provider": {
+          "type": "string",
+          "enum": [
+            "openai",
+            "anthropic",
+            "google",
+            "github-copilot"
+          ],
+          "default": "github-copilot",
+          "description": "AI provider for visual analysis"
+        },
+        "doubleVision.ai.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "API key for AI provider (if required)"
+        },
+        "doubleVision.monitoring.interval": {
+          "type": "number",
+          "default": 5000,
+          "description": "Monitoring interval in milliseconds"
+        },
+        "doubleVision.lvgl.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable LVGL-specific features"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@types/node": "16.x",
+    "@types/ws": "^8.5.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "eslint": "^8.28.0",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "ws": "^8.13.0",
+    "axios": "^1.4.0",
+    "sharp": "^0.32.0"
+  }
+}

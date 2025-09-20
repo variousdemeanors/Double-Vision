@@ -1,0 +1,8 @@
+node_modules/
+out/
+*.vsix
+.vscode-test/
+coverage/
+.nyc_output/
+.env
+*.log
