@@ -24,11 +24,11 @@ Double Vision is a VS Code extension that enables AI assistants to visually anal
 
 ### Code Style
 
-- Use semicolons at the end of statements
+- Use semicolons at the end of statements (enforced by ESLint)
 - Use curly braces for all control structures (if, for, while)
 - Use strict equality (`===` and `!==`) instead of loose equality
 - Maximum line length: 120 characters
-- Use 4 spaces for indentation (configured in tsconfig.json)
+- Use 4 spaces for indentation
 - Add JSDoc comments for public APIs and complex functions
 
 ### VS Code Extension Development
@@ -68,7 +68,7 @@ Double Vision is a VS Code extension that enables AI assistants to visually anal
 - Implement rate limiting and retry logic for external APIs
 - Format prompts appropriately for each AI provider
 - Handle base64 image encoding for API requests
-- Note: External API property names (like `image_url`, `max_tokens`) use snake_case as required by their APIs
+- Note: When interfacing with external APIs, use their required naming conventions (e.g., snake_case for OpenAI: `image_url`, `max_tokens`) even if it differs from the project's camelCase standard
 
 ### Monitoring Service (`src/monitoringService.ts`)
 
